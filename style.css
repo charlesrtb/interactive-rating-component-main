@@ -1,16 +1,23 @@
 :root {
   --bg-main: hsl(216, 12%, 8%);
   --bg-card:hsl(213, 19%, 18%);
+  --bg-card-trans:hsla(213, 19%, 18%, 0.5);
   --orange: hsl(25, 97%, 53%);
   --white: hsl(0, 0%, 100%);
   --light-grey: hsl(217, 12%, 63%);
-  --med-grey: hsl(216, 12%, 54%);
+  --med-grey-trans: hsl(216, 12%, 54%, 15%);
+  --med-grey-full: hsl(216, 12%, 54%, 20%);
   --fw-med: 400;
   --fw-bold: 700;
   --ff:"Overpass", sans-serif;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -22,97 +29,96 @@ body {
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   justify-content: center;
-  align-items: center;
-  background-color: var(--bg-card);
-  height: 35em;
-  width: 35em;
+  flex-shrink: 1;
+  background: linear-gradient(185deg, var(--bg-card) 0%, var(--bg-card-trans) 50%);
+  border-radius: 6%;
+  box-shadow: inset 0 0 50px 0px hsla(0, 0%, 36%, 0.1);
+  height: 25em;
+  width: 25em;
   padding: 2em;
-  margin: 5em auto;
-  outline: 1px solid red;
+  margin: auto;
 }
 
 .rating-form {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   height: 100%;
-  width: 90%;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.title {
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0.7em 0;
+}
+.text .title {
   color: var(--white);
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: var(--fw-bold);
+  margin-bottom: -0.1em;
 }
-
-.description {
+.text .description {
   color: var(--light-grey);
-  line-height: 2em;
-  max-width: 85%;
+  line-height: 1.7em;
+  max-width: 95%;
 }
 
 .rating-select {
-  width: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
   border: none;
-}
-.rating-select div {
-  height: 100%;
   width: 100%;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+}
+.rating-select .radio-btn {
+  box-sizing: border-box;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
+  margin: 1em auto;
+}
+.rating-select .radio-btn label {
+  display: flex;
+  position: relative;
+  cursor: pointer;
   align-items: center;
+  text-align: center;
+  padding: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50px;
+  background-color: var(--med-grey-trans);
 }
-
-label.rating-number {
-  display: block;
-  background: black;
-  position: relative;
+.rating-select .radio-btn label span {
+  line-height: 0;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0 auto;
+  align-items: center;
+  text-align: center;
+  color: var(--light-grey);
 }
-label.rating-number input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
+.rating-select .radio-btn label:has(input:checked) {
+  background-color: var(--light-grey);
+  transition: 200ms;
 }
-label.rating-number .number {
-  width: 4.5em;
-  height: 4.5em;
-  background-color: #eee;
-  border-radius: 50%;
+.rating-select .radio-btn label:has(input:checked):has(input:hover) {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
-
-input[type=radio] {
-  width: 4.5em;
-  height: 4.5em;
-  cursor: pointer;
-  position: relative;
-  color: black;
-  z-index: 99;
+.rating-select .radio-btn label:has(input:hover) {
+  background-color: var(--orange);
+  transition: 200ms;
 }
-input[type=radio]:after {
-  content: "";
-  width: 4.5em;
-  height: 4.5em;
-  position: absolute;
-  background: blue;
-  border-radius: 100%;
+.rating-select .radio-btn input {
+  display: none;
 }
-input[type=radio]:checked:after {
-  content: "";
-  width: 4.5em;
-  height: 4.5em;
-  position: absolute;
-  background: red;
-  border-radius: 100%;
+.rating-select .radio-btn input:checked ~ span, .rating-select .radio-btn input:hover ~ span {
+  color: white;
+  transition: 200ms;
 }
 
 div.submit {
@@ -121,7 +127,7 @@ div.submit {
 }
 div.submit button {
   width: 100%;
-  padding: 1em 1em;
+  padding: 0.7em;
   background-color: var(--orange);
   font-family: var(--ff);
   text-transform: uppercase;
@@ -130,5 +136,54 @@ div.submit button {
   letter-spacing: 0.25ch;
   border: none;
   border-radius: 50px;
-  box-shadow: 0 2px 15px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 15px 1px rgba(18, 18, 18, 0.2);
+  cursor: pointer;
+  transition: 0.5s;
+}
+div.submit button:hover {
+  background-color: var(--white);
+  color: var(--orange);
+  transition: 200ms;
+  transition: 0.5s;
+}
+
+.star-icon img {
+  background-color: var(--med-grey-trans);
+  width: 1em;
+  padding: 1em;
+  border-radius: 50%;
+}
+
+.card[data-state=thank-you] {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card[data-state=thank-you] .return-rating {
+  margin: 1.5em auto;
+  padding: 0 2em;
+  color: var(--orange);
+  background-color: var(--bg-card-trans);
+  border-radius: 50px;
+}
+.card[data-state=thank-you] .thank-you-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.card[data-state=thank-you] .thank-you-text .title {
+  color: var(--white);
+  font-size: 1.7rem;
+  font-weight: var(--fw-bold);
+}
+.card[data-state=thank-you] .thank-you-text .description {
+  color: var(--light-grey);
+  line-height: 1.7em;
+  max-width: 95%;
+  margin: auto;
+}
+
+.hidden {
+  display: none;
 }/*# sourceMappingURL=style.css.map */
