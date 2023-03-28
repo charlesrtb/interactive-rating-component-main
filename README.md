@@ -32,7 +32,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Add live site URL here](https://charlesrtb.github.io/interactive-rating-component-main/)
+- Live Site URL: [Live Site URL](https://charlesrtb.github.io/interactive-rating-component-main/)
 
 ## My process
 
